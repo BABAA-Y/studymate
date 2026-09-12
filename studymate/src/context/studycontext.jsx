@@ -3,33 +3,33 @@ import { api } from "../services/api";
 
 const StudyContext = createContext();
 
+// Helper to retrieve persisted items while purging legacy mock data
+function loadAndSanitizeStorage(key, isLegacyMock) {
+  const saved = localStorage.getItem(key);
+  if (!saved) return [];
+  try {
+    const parsed = JSON.parse(saved);
+    if (!Array.isArray(parsed)) return [];
+    const cleaned = parsed.filter((item) => !isLegacyMock(item));
+    if (cleaned.length !== parsed.length) {
+      localStorage.setItem(key, JSON.stringify(cleaned));
+    }
+    return cleaned;
+  } catch {
+    return [];
+  }
+}
+
 export function StudyProvider({ children }) {
   // =========================
   // TASKS
   // =========================
-  const [tasks, setTasks] = useState(() => {
-    const savedTasks = localStorage.getItem("study-mate-tasks");
-    return savedTasks
-      ? JSON.parse(savedTasks)
-      : [
-          {
-            id: "1",
-            title: "Study JavaScript",
-            subject: "Programming",
-            priority: "High",
-            dueDate: "2026-09-10",
-            completed: false,
-          },
-          {
-            id: "2",
-            title: "Complete React Module",
-            subject: "React",
-            priority: "Medium",
-            dueDate: "2026-09-12",
-            completed: true,
-          },
-        ];
-  });
+  const [tasks, setTasks] = useState(() =>
+    loadAndSanitizeStorage("study-mate-tasks", (t) =>
+      (t.id === "1" && t.title === "Study JavaScript") ||
+      (t.id === "2" && t.title === "Complete React Module")
+    )
+  );
 
   useEffect(() => {
     localStorage.setItem("study-mate-tasks", JSON.stringify(tasks));
@@ -81,19 +81,11 @@ export function StudyProvider({ children }) {
   // =========================
   // NOTES
   // =========================
-  const [notes, setNotes] = useState(() => {
-    const savedNotes = localStorage.getItem("study-mate-notes");
-    return savedNotes
-      ? JSON.parse(savedNotes)
-      : [
-          {
-            id: "1",
-            title: "React Basics",
-            subject: "React",
-            content: "Components, props, state and hooks.",
-          },
-        ];
-  });
+  const [notes, setNotes] = useState(() =>
+    loadAndSanitizeStorage("study-mate-notes", (n) =>
+      n.id === "1" && n.title === "React Basics"
+    )
+  );
 
   useEffect(() => {
     localStorage.setItem("study-mate-notes", JSON.stringify(notes));
@@ -130,25 +122,12 @@ export function StudyProvider({ children }) {
   // =========================
   // SUBJECTS
   // =========================
-  const [subjects, setSubjects] = useState(() => {
-    const savedSubjects = localStorage.getItem("study-mate-subjects");
-    return savedSubjects
-      ? JSON.parse(savedSubjects)
-      : [
-          {
-            id: "1",
-            name: "JavaScript",
-            tasks: 12,
-            progress: 80,
-          },
-          {
-            id: "2",
-            name: "React",
-            tasks: 8,
-            progress: 60,
-          },
-        ];
-  });
+  const [subjects, setSubjects] = useState(() =>
+    loadAndSanitizeStorage("study-mate-subjects", (s) =>
+      (s.id === "1" && s.name === "JavaScript") ||
+      (s.id === "2" && s.name === "React")
+    )
+  );
 
   useEffect(() => {
     localStorage.setItem("study-mate-subjects", JSON.stringify(subjects));
@@ -185,29 +164,12 @@ export function StudyProvider({ children }) {
   // =========================
   // SCHEDULE
   // =========================
-  const [schedule, setSchedule] = useState(() => {
-    const savedSchedule = localStorage.getItem("study-mate-schedule");
-    return savedSchedule
-      ? JSON.parse(savedSchedule)
-      : [
-          {
-            id: "1",
-            title: "React Practice",
-            subject: "React",
-            date: "2026-09-08",
-            startTime: "10:00",
-            endTime: "11:30",
-          },
-          {
-            id: "2",
-            title: "DBMS Revision",
-            subject: "DBMS",
-            date: "2026-09-09",
-            startTime: "15:00",
-            endTime: "16:00",
-          },
-        ];
-  });
+  const [schedule, setSchedule] = useState(() =>
+    loadAndSanitizeStorage("study-mate-schedule", (item) =>
+      (item.id === "1" && item.title === "React Practice") ||
+      (item.id === "2" && item.title === "DBMS Revision")
+    )
+  );
 
   useEffect(() => {
     localStorage.setItem("study-mate-schedule", JSON.stringify(schedule));
