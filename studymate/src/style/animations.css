@@ -1,0 +1,394 @@
+/* =========================================
+   STUDY MATE - GLOBAL ANIMATIONS
+========================================= */
+
+:root,
+html.dark {
+  --glow-color: rgba(255, 255, 255, 0.08);
+  --glow-soft: rgba(255, 255, 255, 0.06);
+  --line-shimmer: rgba(255, 255, 255, 0.75);
+  --shimmer-gradient: rgba(255, 255, 255, 0.04);
+  --card-hover-border: #3f3f46;
+  --card-hover-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --card-laser: rgba(255, 255, 255, 0.75);
+}
+
+html.light {
+  --glow-color: rgba(15, 23, 42, 0.08);
+  --glow-soft: rgba(15, 23, 42, 0.06);
+  --line-shimmer: rgba(15, 23, 42, 0.6);
+  --shimmer-gradient: rgba(15, 23, 42, 0.05);
+  --card-hover-border: #94a3b8;
+  --card-hover-shadow: 0 12px 32px -4px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+  --card-laser: rgba(15, 23, 42, 0.75);
+}
+
+/* ---------- Page Entrance ---------- */
+
+.page-enter {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+
+.page-animation {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.page-animation-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ---------- Reusable Card ---------- */
+
+.study-card {
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.study-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--card-hover-border);
+  box-shadow: var(--card-hover-shadow);
+}
+
+
+/* ---------- Interactive Button ---------- */
+
+.study-button {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.study-button:hover {
+  transform: translateY(-2px);
+}
+
+.study-button:active {
+  transform: scale(0.97);
+}
+
+
+/* ---------- Hover Lift ---------- */
+
+.hover-lift {
+  transition: transform 0.25s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-3px);
+}
+
+
+/* ---------- Soft Glow ---------- */
+
+.hover-glow {
+  transition:
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 28px var(--glow-soft);
+}
+
+
+/* ---------- Image ---------- */
+
+.study-image {
+  transition:
+    transform 0.35s ease,
+    opacity 0.35s ease;
+}
+
+.study-image:hover {
+  transform: scale(1.04);
+}
+
+
+/* ---------- Input Focus ---------- */
+
+.study-input {
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.study-input:focus {
+  transform: translateY(-1px);
+  border-color: #52525b;
+  box-shadow: 0 0 18px var(--glow-soft);
+}
+
+
+/* ---------- Fade In ---------- */
+
+.fade-in {
+  animation: fadeIn 0.45s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+/* ---------- Slide Up ---------- */
+
+.slide-up {
+  animation: slideUp 0.5s ease forwards;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ---------- Scale In ---------- */
+
+.scale-in {
+  animation: scaleIn 0.35s ease forwards;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* ---------- Floating ---------- */
+
+.float-animation {
+  animation: floatAnimation 3s ease-in-out infinite;
+}
+
+@keyframes floatAnimation {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+
+/* ---------- Pulse Glow ---------- */
+
+.pulse-glow {
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 transparent;
+  }
+
+  50% {
+    box-shadow: 0 0 24px var(--glow-color);
+  }
+}
+
+
+/* ---------- Moving Line ---------- */
+
+.animated-line {
+  position: relative;
+  overflow: hidden;
+}
+
+.animated-line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -30%;
+  width: 30%;
+  height: 100%;
+  background: var(--line-shimmer);
+  animation: movingLine 2.5s ease-in-out infinite;
+}
+
+@keyframes movingLine {
+  0% {
+    left: -30%;
+  }
+
+  50% {
+    left: 100%;
+  }
+
+  100% {
+    left: 100%;
+  }
+}
+
+
+/* ---------- Shimmer ---------- */
+
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 70%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--shimmer-gradient),
+    transparent
+  );
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -120%;
+  }
+
+  60% {
+    left: 140%;
+  }
+
+  100% {
+    left: 140%;
+  }
+}
+
+
+/* ---------- Sidebar ---------- */
+
+.sidebar-item {
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.sidebar-item:hover {
+  transform: translateX(3px);
+}
+
+
+/* ---------- Modal ---------- */
+
+.modal-animation {
+  animation: modalAnimation 0.25s ease forwards;
+}
+
+@keyframes modalAnimation {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+
+/* ---------- Progress ---------- */
+
+.progress-animation {
+  animation: progressAnimation 1s ease-out forwards;
+  transform-origin: left;
+}
+
+@keyframes progressAnimation {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+
+/* ---------- Stagger Helpers ---------- */
+
+.stagger-1 {
+  animation-delay: 0.05s;
+}
+
+.stagger-2 {
+  animation-delay: 0.1s;
+}
+
+.stagger-3 {
+  animation-delay: 0.15s;
+}
+
+.stagger-4 {
+  animation-delay: 0.2s;
+}
+
+.stagger-5 {
+  animation-delay: 0.25s;
+}
+
+.stagger-6 {
+  animation-delay: 0.3s;
+}
+
+
+/* ---------- Reduced Motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

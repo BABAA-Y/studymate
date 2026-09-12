@@ -1,0 +1,27 @@
+# Dependencies & Environments
+node_modules/
+venv/
+.venv/
+env/
+
+# Sensitive Environment Variables (Never commit database passwords!)
+.env
+.env.local
+.env.*.local
+*.env
+
+# Build outputs
+dist/
+build/
+
+# Python cache & logs
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+
+# Editor & OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

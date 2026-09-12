@@ -1,0 +1,1210 @@
+@import "tailwindcss";
+@import "./style/animations.css";
+
+/* =========================================
+   LIGHT / DARK THEME SYSTEM
+========================================= */
+
+html {
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+:root,
+html.dark {
+  color-scheme: dark;
+  --timer-progress: #ffffff;
+  --timer-track: #27272a;
+  --water-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.18) 50%, rgba(255, 255, 255, 0.10) 100%);
+  --water-wave-front: rgba(255, 255, 255, 0.50);
+  --water-wave-back: rgba(255, 255, 255, 0.25);
+  --water-crest-glow: 0 0 18px rgba(255, 255, 255, 0.5);
+  --vessel-bg: #09090b;
+  --vessel-border: #27272a;
+  --bubble-bg: rgba(255, 255, 255, 0.45);
+}
+
+html.light {
+  color-scheme: light;
+  --timer-progress: #0f172a;
+  --timer-track: #e2e8f0;
+  --water-gradient: linear-gradient(180deg, rgba(15, 23, 42, 0.09) 0%, rgba(15, 23, 42, 0.16) 50%, rgba(15, 23, 42, 0.24) 100%);
+  --water-wave-front: rgba(15, 23, 42, 0.22);
+  --water-wave-back: rgba(15, 23, 42, 0.12);
+  --water-crest-glow: 0 0 14px rgba(15, 23, 42, 0.15);
+  --vessel-bg: #f8fafc;
+  --vessel-border: #e2e8f0;
+  --bubble-bg: rgba(15, 23, 42, 0.35);
+}
+
+/* Base Light Mode Background & Text */
+html.light,
+html.light body,
+html.light #root,
+html.light main,
+html.light .bg-black {
+  background-color: #f8fafc !important; /* slate-50 */
+  color: #0f172a !important; /* slate-900 */
+}
+
+/* Sidebar & Header in Light Mode */
+html.light aside,
+html.light header,
+html.light .bg-\[\#050505\],
+html.light .bg-\[\#050505\]\/95 {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* Cards & Containers in Light Mode */
+html.light .bg-zinc-900 {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+}
+
+html.light .bg-zinc-950 {
+  background-color: #f1f5f9 !important; /* slate-100 */
+  border-color: #e2e8f0 !important;
+}
+
+/* Borders in Light Mode */
+html.light .border-zinc-800,
+html.light .border-zinc-700 {
+  border-color: #e2e8f0 !important;
+}
+
+html.light .border-zinc-600 {
+  border-color: #cbd5e1 !important;
+}
+
+/* Typography in Light Mode */
+html.light .text-white {
+  color: #0f172a !important;
+}
+
+html.light .text-gray-100,
+html.light .text-zinc-100,
+html.light .text-gray-200,
+html.light .text-zinc-200 {
+  color: #0f172a !important;
+}
+
+html.light .text-gray-300,
+html.light .text-zinc-300 {
+  color: #1e293b !important;
+}
+
+html.light .text-gray-400,
+html.light .text-zinc-400 {
+  color: #475569 !important;
+}
+
+html.light .text-gray-500,
+html.light .text-zinc-500,
+html.light .text-gray-600,
+html.light .text-zinc-600 {
+  color: #64748b !important;
+}
+
+html.light .text-gray-700,
+html.light .text-zinc-700 {
+  color: #94a3b8 !important;
+}
+
+html.light .text-green-400 {
+  color: #16a34a !important;
+}
+
+html.light .text-blue-400 {
+  color: #0284c7 !important;
+}
+
+html.light .text-sky-400 {
+  color: #0284c7 !important;
+}
+
+html.light .text-amber-400 {
+  color: #d97706 !important;
+}
+
+/* Interactive Hover States in Light Mode */
+html.light .hover\:bg-zinc-900:hover,
+html.light .hover\:bg-zinc-800:hover {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+html.light .hover\:bg-zinc-950:hover {
+  background-color: #e2e8f0 !important;
+}
+
+html.light .hover\:border-zinc-700:hover,
+html.light .hover\:border-zinc-600:hover {
+  border-color: #94a3b8 !important;
+}
+
+/* Prevent hover states from turning text white on light mode surfaces */
+html.light .hover\:text-white:hover,
+html.light :hover > .group-hover\:text-white,
+html.light .group:hover .group-hover\:text-white,
+html.light .group\/item:hover .group-hover\/item\:text-white,
+html.light a:hover .group-hover\:text-white,
+html.light div:hover .group-hover\:text-white {
+  color: #0f172a !important;
+}
+
+html.light .hover\:border-white:hover {
+  border-color: #0f172a !important;
+}
+
+html.light .hover\:border-zinc-500:hover {
+  border-color: #64748b !important;
+}
+
+/* Toggle Switch Controls in Light Mode */
+html.light [role="switch"].bg-white {
+  background-color: #0f172a !important;
+}
+
+html.light [role="switch"].bg-zinc-800 {
+  background-color: #e2e8f0 !important;
+}
+
+html.light [role="switch"] span.bg-black {
+  background-color: #ffffff !important;
+}
+
+html.light [role="switch"] span.bg-zinc-400 {
+  background-color: #94a3b8 !important;
+}
+
+/* Active Nav Links in Light Mode */
+html.light .bg-white.text-black {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+}
+
+html.light a.bg-white.text-black,
+html.light button.bg-white.text-black {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+}
+
+html.light button.bg-white.text-black:hover,
+html.light a.bg-white.text-black:hover {
+  background-color: #1e293b !important;
+}
+
+/* Form Inputs & Textareas in Light Mode */
+html.light input,
+html.light textarea,
+html.light select {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+html.light input:focus,
+html.light textarea:focus,
+html.light select:focus {
+  border-color: #0f172a !important;
+  box-shadow: 0 0 0 1px #0f172a !important;
+}
+
+html.light input::placeholder,
+html.light textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* =========================================
+   STUDY TIMER LIGHT & DARK THEMING
+========================================= */
+
+/* Timer Outer Bezel */
+html.light .timer-bezel {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 50%, #e2e8f0 100%) !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Timer Water Sphere Vessel */
+.timer-vessel {
+  background-color: var(--vessel-bg) !important;
+  border-color: var(--vessel-border) !important;
+}
+
+html.dark .timer-vessel {
+  box-shadow: inset 0 2px 24px rgba(0, 0, 0, 0.85) !important;
+}
+
+html.light .timer-vessel {
+  box-shadow: inset 0 2px 16px rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Glass Refraction Rim */
+html.dark .timer-refraction {
+  box-shadow: inset 0 0 35px rgba(255, 255, 255, 0.05);
+}
+
+html.light .timer-refraction {
+  box-shadow: inset 0 0 25px rgba(15, 23, 42, 0.04);
+}
+
+/* Floating Complication Center Capsule */
+html.dark .timer-center-capsule {
+  background: rgba(0, 0, 0, 0.40);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+html.light .timer-center-capsule {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Timer Center Digits */
+html.dark .timer-digits {
+  color: #ffffff !important;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.9);
+}
+
+html.light .timer-digits {
+  color: #0f172a !important;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8), 0 2px 8px rgba(15, 23, 42, 0.06);
+}
+
+/* Mode Badge Pill */
+html.dark .timer-badge-pill {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #d4d4d8 !important;
+}
+
+html.light .timer-badge-pill {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #475569 !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+/* Status Pill */
+html.dark .timer-status-pill {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #a1a1aa !important;
+}
+
+html.light .timer-status-pill {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #334155 !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+/* Rising Micro-Bubbles */
+.timer-bubble {
+  background-color: var(--bubble-bg) !important;
+}
+
+/* Tactile Control Buttons (Secondary) */
+html.dark .timer-btn-deck {
+  background-color: #09090b;
+  border-color: #27272a;
+  color: #a1a1aa;
+}
+
+html.dark .timer-btn-deck:hover:not(:disabled) {
+  border-color: #3f3f46;
+  color: #ffffff;
+}
+
+html.light .timer-btn-deck {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #334155 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+}
+
+html.light .timer-btn-deck:hover:not(:disabled) {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+/* Tactile Play Button (Primary) */
+html.dark .timer-btn-play {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: 0 0 35px rgba(255, 255, 255, 0.25) !important;
+}
+
+html.dark .timer-btn-play:hover {
+  background-color: #e4e4e7 !important;
+}
+
+html.light .timer-btn-play {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.18) !important;
+}
+
+html.light .timer-btn-play:hover {
+  background-color: #1e293b !important;
+}
+
+/* Session Mode Buttons */
+html.dark .timer-mode-btn-active {
+  background-color: rgba(39, 39, 42, 0.9) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+
+html.light .timer-mode-btn-active {
+  background-color: #0f172a !important;
+  border-color: #0f172a !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12) !important;
+}
+
+html.light .timer-mode-btn-active p {
+  color: #ffffff !important;
+}
+
+html.light .timer-mode-btn-active p.text-zinc-500 {
+  color: #94a3b8 !important;
+}
+
+html.dark .timer-mode-btn-inactive {
+  background-color: rgba(9, 9, 11, 0.6) !important;
+  border-color: #27272a !important;
+  color: #a1a1aa !important;
+}
+
+html.light .timer-mode-btn-inactive {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #475569 !important;
+}
+
+html.light .timer-mode-btn-inactive:hover {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+/* Duration Preset Buttons */
+html.dark .timer-preset-active {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+html.light .timer-preset-active {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+}
+
+html.dark .timer-preset-inactive {
+  background-color: #18181b !important;
+  border-color: #27272a !important;
+  color: #a1a1aa !important;
+}
+
+html.light .timer-preset-inactive {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #475569 !important;
+}
+
+html.light .timer-preset-inactive:hover {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+/* Universal Light Mode Support for Card Wells and Dividers */
+html.light .bg-zinc-950\/60,
+html.light .bg-zinc-950\/40,
+html.light .bg-zinc-950\/80 {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light .border-zinc-800\/60,
+html.light .border-zinc-800\/80 {
+  border-color: #e2e8f0 !important;
+}
+
+/* Tagline Badges in Light Mode */
+html.light .tagline-badge,
+html.light .bg-zinc-900\/80 {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #1e293b !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.04) !important;
+}
+
+html.light .tagline-badge span:not(.animate-pulse) {
+  color: #1e293b !important;
+}
+
+/* Shimmer beam and accents in Light Mode */
+html.light .bg-zinc-800 {
+  background-color: #e2e8f0 !important;
+}
+
+html.light .bg-zinc-700 {
+  background-color: #cbd5e1 !important;
+}
+
+/* Modals & Backdrop in Light Mode */
+html.light .modal-animation {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+html.light .bg-black\/80,
+html.light .bg-black\/85,
+html.light .bg-black\/95 {
+  background-color: rgba(15, 23, 42, 0.5) !important;
+}
+
+/* Light Mode Card Laser Lines, Shimmer & Hover Lights */
+html.light .bg-white\/70 {
+  background-color: rgba(15, 23, 42, 0.75) !important;
+}
+
+html.light .animate-\[slide_2\.5s_ease-in-out_infinite\] {
+  background-color: #0f172a !important;
+}
+
+html.light .animate-ping.bg-white {
+  background-color: #0f172a !important;
+}
+
+html.light .h-full.bg-white,
+html.light .h-full.rounded-full.bg-white {
+  background-color: #0f172a !important;
+}
+
+html.light .animate-\[spin_10s_linear_infinite\],
+html.light .animate-\[spin_12s_linear_infinite\] {
+  border-color: #94a3b8 !important;
+}
+
+html.light .animate-\[spin_7s_linear_infinite_reverse\],
+html.light .animate-\[spin_8s_linear_infinite_reverse\] {
+  border-color: #cbd5e1 !important;
+}
+
+/* Hover elevation for all cards in Light Mode */
+html.light .study-card:hover,
+html.light .group.bg-zinc-900:hover,
+html.light section .bg-zinc-900:hover,
+html.light a.bg-zinc-900:hover {
+  border-color: #94a3b8 !important;
+  box-shadow: 0 12px 32px -4px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04) !important;
+}
+
+/* Sheen sweep animation in Light Mode */
+html.light [class*="skew-x-[-20deg]"],
+html.light .via-white\/\[0\.04\] {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(15, 23, 42, 0.07),
+    transparent
+  ) !important;
+}
+
+html.light .via-white\/20 {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(15, 23, 42, 0.2),
+    transparent
+  ) !important;
+}
+
+/* Ambient glow halograms in Light Mode */
+html.light .bg-white\/\[0\.04\],
+html.light .bg-white\/\[0\.03\],
+html.light .bg-white\/\[0\.025\],
+html.light .bg-white\/\[0\.02\],
+html.light .bg-white\/\[0\.015\] {
+  background-color: rgba(15, 23, 42, 0.04) !important;
+}
+
+/* Logo badges and high-contrast accents in Light Mode */
+html.light .shadow-\[0_0_35px_rgba\(255\,255\,255\,0\.12\)\],
+html.light .shadow-\[0_0_30px_rgba\(255\,255\,255\,0\.15\)\],
+html.light .shadow-\[0_0_25px_rgba\(255\,255\,255\,0\.15\)\] {
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15) !important;
+}
+
+/* =========================================
+   THEME SELECTOR CARDS
+========================================= */
+
+.theme-card-active {
+  border-color: rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35), 0 12px 30px rgba(0, 0, 0, 0.5) !important;
+  background-color: #0c0c0e !important;
+}
+
+html.light .theme-card-active {
+  border-color: #0f172a !important;
+  box-shadow: 0 0 0 2px #0f172a, 0 10px 25px rgba(15, 23, 42, 0.08) !important;
+  background-color: #f8fafc !important;
+}
+
+.theme-card-idle {
+  border-color: #27272a !important;
+  background-color: rgba(9, 9, 11, 0.6) !important;
+}
+
+html.light .theme-card-idle {
+  border-color: #e2e8f0 !important;
+  background-color: #ffffff !important;
+}
+
+html.light .theme-card-idle:hover {
+  border-color: #94a3b8 !important;
+  background-color: #f8fafc !important;
+}
+
+/* =========================================
+   SIDEBAR PROFILE POPOVER, TRIGGER & CONTROLS (LIGHT MODE)
+========================================= */
+
+html.light .profile-popover-card {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.15), 0 0 0 1px rgba(226, 232, 240, 0.8) !important;
+}
+
+html.light .profile-trigger-card {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05) !important;
+}
+
+html.light .profile-trigger-card:hover {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light .popover-pro-badge {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+  color: #1e293b !important;
+}
+
+html.light .popover-theme-track {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light .popover-theme-btn-active {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08) !important;
+}
+
+html.light .popover-theme-btn-idle {
+  color: #64748b !important;
+  background-color: transparent !important;
+}
+
+html.light .popover-theme-btn-idle:hover {
+  color: #0f172a !important;
+  background-color: #e2e8f0 !important;
+}
+
+html.light .popover-nav-item {
+  color: #334155 !important;
+}
+
+html.light .popover-nav-item:hover {
+  color: #0f172a !important;
+  background-color: #f1f5f9 !important;
+}
+
+html.light .popover-nav-item span.text-zinc-500 {
+  color: #94a3b8 !important;
+}
+
+html.light .popover-nav-item:hover span.text-zinc-500 {
+  color: #475569 !important;
+}
+
+html.light .popover-logout-btn {
+  color: #dc2626 !important;
+}
+
+html.light .popover-logout-btn:hover {
+  color: #b91c1c !important;
+  background-color: #fef2f2 !important;
+}
+
+html.light .sliding-laser-beam {
+  background-color: #94a3b8 !important;
+}
+
+html.light .focus-engine-card {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light .focus-engine-card:hover {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.06) !important;
+}
+
+html.light .focus-engine-btn {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+}
+
+html.light .focus-engine-btn:hover {
+  background-color: #1e293b !important;
+}
+
+/* Universal Light Mode Overrides for Tailwind Opacity Slashes */
+html.light .bg-zinc-900\/95,
+html.light .bg-zinc-900\/90,
+html.light .bg-zinc-900\/80,
+html.light .bg-zinc-900\/70,
+html.light .bg-zinc-900\/60,
+html.light .bg-zinc-900\/50 {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light .bg-zinc-950\/60,
+html.light .bg-zinc-950\/80,
+html.light .bg-zinc-950\/90 {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light .border-zinc-800\/80,
+html.light .border-zinc-700\/80 {
+  border-color: #e2e8f0 !important;
+}
+
+html.light .hover\:bg-zinc-900\/80:hover {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+html.light .hover\:bg-zinc-800\/80:hover {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+html.light .shadow-black\/80 {
+  box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.15) !important;
+}
+
+/* =========================================
+   FUNKY B&W HEXAGON TERMINAL THEME
+========================================= */
+
+/* Exact Regular Hexagon & Polygonal Clips */
+.clip-hexagon {
+  clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%);
+}
+
+.clip-hexagon-flat {
+  clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
+}
+
+.hex-chamfer-lg {
+  clip-path: polygon(28px 0, calc(100% - 28px) 0, 100% 28px, 100% calc(100% - 28px), calc(100% - 28px) 100%, 28px 100%, 0 calc(100% - 28px), 0 28px);
+}
+
+.hex-chamfer-md {
+  clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 14px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 14px 100%, 0 calc(100% - 14px), 0 14px);
+}
+
+.hex-chamfer-sm {
+  clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px);
+}
+
+/* Funky B&W Hard Geometry & Neo-Brutalist Shadows */
+.bw-shadow-card {
+  filter: drop-shadow(8px 8px 0px rgba(255, 255, 255, 0.25));
+}
+html.light .bw-shadow-card {
+  filter: drop-shadow(8px 8px 0px #000000);
+}
+
+.bw-shadow-btn {
+  box-shadow: 4px 4px 0px rgba(255, 255, 255, 0.4);
+}
+html.light .bw-shadow-btn {
+  box-shadow: 4px 4px 0px #000000;
+}
+
+.bw-shadow-badge {
+  box-shadow: 2px 2px 0px rgba(255, 255, 255, 0.35);
+}
+html.light .bw-shadow-badge {
+  box-shadow: 2px 2px 0px #000000;
+}
+
+/* Funky Diagonal B&W Hazard Warning Stripes */
+.bw-hazard-stripes-dark {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #ffffff,
+    #ffffff 8px,
+    #000000 8px,
+    #000000 16px
+  );
+}
+
+.bw-hazard-stripes-light {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #000000,
+    #000000 8px,
+    #ffffff 8px,
+    #ffffff 16px
+  );
+}
+
+/* Infinite Marquee Ticker */
+@keyframes hexMarquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-hex-marquee {
+  display: flex;
+  width: 200%;
+  animation: hexMarquee 28s linear infinite;
+}
+.animate-hex-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Page Base */
+.login-bw-page {
+  background-color: #000000;
+  color: #ffffff;
+}
+html.light .login-bw-page {
+  background-color: #f8fafc !important;
+  color: #000000 !important;
+}
+
+/* Marquee Ticker Tape */
+.login-marquee-ticker {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+html.light .login-marquee-ticker {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border-color: #000000 !important;
+}
+
+/* Top HUD Bar */
+.login-bw-header {
+  border-color: #27272a;
+  background-color: transparent;
+}
+html.light .login-bw-header {
+  border-color: #000000 !important;
+  background-color: transparent !important;
+}
+
+.login-logo-hex {
+  background-color: #ffffff;
+  color: #000000;
+}
+html.light .login-logo-hex {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+.login-hud-clock {
+  background-color: #000000;
+  color: #ffffff;
+  border: 1px solid #27272a;
+}
+html.light .login-hud-clock {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 1.5px solid #000000 !important;
+  box-shadow: 2px 2px 0px #000000 !important;
+}
+
+.login-theme-box {
+  background-color: #000000;
+  border: 1px solid #27272a;
+}
+html.light .login-theme-box {
+  background-color: #ffffff !important;
+  border: 1.5px solid #000000 !important;
+}
+
+.login-theme-active-dark {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+.login-theme-active-light {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+.login-guest-btn {
+  color: #ffffff;
+  border: 1px solid #27272a;
+}
+html.light .login-guest-btn {
+  color: #000000 !important;
+  border: 1.5px solid #000000 !important;
+  background-color: #ffffff !important;
+}
+html.light .login-guest-btn:hover {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* Card Outer (2.5px chamfered border frame) & Card Inner */
+.login-card-outer {
+  background-color: #ffffff;
+}
+html.light .login-card-outer {
+  background-color: #000000 !important;
+}
+
+.login-card-inner {
+  background-color: #09090b;
+  color: #ffffff;
+}
+html.light .login-card-inner {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+/* Tilted Decal Stamp */
+.login-stamp-decal {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #ffffff;
+  box-shadow: 2px 2px 0px rgba(255, 255, 255, 0.4);
+}
+html.light .login-stamp-decal {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 1px solid #000000 !important;
+  box-shadow: 2px 2px 0px #000000 !important;
+}
+
+/* Avatar Center Disc */
+.login-avatar-disc {
+  background-color: #ffffff;
+  color: #000000;
+}
+html.light .login-avatar-disc {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+.login-avatar-tag {
+  background-color: #000000;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+}
+html.light .login-avatar-tag {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 1.5px solid #000000 !important;
+  box-shadow: 2px 2px 0px #000000 !important;
+}
+
+/* Mode Tabs */
+.login-tab-container {
+  background-color: #000000;
+  border: 2px solid #27272a;
+}
+html.light .login-tab-container {
+  background-color: #f4f4f5 !important;
+  border: 2px solid #000000 !important;
+}
+
+.login-tab-active {
+  background-color: #ffffff;
+  color: #000000;
+  box-shadow: 2px 2px 0px rgba(255, 255, 255, 0.4);
+}
+html.light .login-tab-active {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  box-shadow: 2px 2px 0px #000000 !important;
+}
+
+.login-tab-idle {
+  color: #71717a;
+}
+html.light .login-tab-idle {
+  color: #52525b !important;
+}
+html.light .login-tab-idle:hover {
+  color: #000000 !important;
+}
+
+/* Execution Diagnostic Status Ribbon */
+.login-exec-ribbon {
+  background-color: #ffffff;
+  color: #000000;
+  border: 2px solid #ffffff;
+}
+html.light .login-exec-ribbon {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
+}
+
+/* Form Input Fields */
+.login-bw-input {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #27272a !important;
+}
+.login-bw-input:focus {
+  border-color: #ffffff !important;
+  box-shadow: 3px 3px 0px rgba(255, 255, 255, 0.3) !important;
+}
+.login-bw-input::placeholder {
+  color: #52525b !important;
+}
+
+html.light .login-bw-input {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+}
+html.light .login-bw-input:focus {
+  border-color: #000000 !important;
+  box-shadow: 3px 3px 0px #000000 !important;
+}
+html.light .login-bw-input::placeholder {
+  color: #71717a !important;
+}
+
+/* Show/Hide Key Toggle Button */
+.login-key-btn {
+  border: 1px solid #3f3f46;
+  color: #a1a1aa;
+}
+.login-key-btn:hover {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+html.light .login-key-btn {
+  border: 1.5px solid #000000 !important;
+  color: #000000 !important;
+  background-color: #ffffff !important;
+}
+html.light .login-key-btn:hover {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* Cipher Strength Pods */
+.login-pod-active {
+  background-color: #ffffff;
+  color: #000000;
+  border: 2px solid #ffffff;
+  box-shadow: 2px 2px 0px rgba(255, 255, 255, 0.4);
+}
+html.light .login-pod-active {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 2px 2px 0px #000000 !important;
+}
+
+.login-pod-idle {
+  background-color: #09090b;
+  color: #52525b;
+  border: 2px solid #27272a;
+}
+html.light .login-pod-idle {
+  background-color: #f4f4f5 !important;
+  color: #71717a !important;
+  border: 2px solid #e4e4e7 !important;
+}
+
+/* Primary Execute Submit Button */
+.login-bw-submit {
+  background-color: #ffffff;
+  color: #000000;
+  border: 2px solid #ffffff;
+}
+.login-bw-submit:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+html.light .login-bw-submit {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 4px 4px 0px #000000 !important;
+}
+html.light .login-bw-submit:hover {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+}
+
+/* 1-Click Instant Demo Button */
+.login-bw-demo {
+  background-color: #09090b;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+.login-bw-demo:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+html.light .login-bw-demo {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 3px 3px 0px #000000 !important;
+}
+html.light .login-bw-demo:hover {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* Bottom Footer */
+.login-bw-footer {
+  border-color: #27272a;
+  color: #71717a;
+}
+html.light .login-bw-footer {
+  border-color: #000000 !important;
+  color: #000000 !important;
+}
+
+/* =========================================
+   KEYFRAME ANIMATIONS
+========================================= */
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  50% {
+    transform: translateX(200%);
+  }
+
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+@keyframes checkPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(-20deg);
+  }
+
+  70% {
+    transform: scale(1.2) rotate(5deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+/* =========================================
+   WATER & LIQUID RISING ANIMATIONS
+========================================= */
+
+@keyframes waterWave {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes waterWaveSlow {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes bubbleDrift {
+  0% {
+    transform: translateY(120%) scale(0.6);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.7;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-80%) scale(1.1);
+    opacity: 0;
+  }
+}
+
+.animate-water-wave {
+  animation: waterWave 5s linear infinite;
+}
+
+.animate-water-wave-slow {
+  animation: waterWaveSlow 8s linear infinite;
+}
+
+.animate-bubble-1 {
+  animation: bubbleDrift 4s ease-in infinite;
+}
+
+.animate-bubble-2 {
+  animation: bubbleDrift 5.5s ease-in 1.4s infinite;
+}
+
+.animate-bubble-3 {
+  animation: bubbleDrift 6.5s ease-in 2.8s infinite;
+}

@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <polygon points="50,3 93.3,25 93.3,75 50,97 6.7,75 6.7,25" fill="#000000" stroke="#ffffff" stroke-width="5"/>
+  <text x="50" y="65" font-size="48" font-weight="900" font-family="monospace, sans-serif" text-anchor="middle" fill="#ffffff">Ω</text>
+</svg>
