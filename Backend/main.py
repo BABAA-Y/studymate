@@ -1,4 +1,6 @@
 import os
+import certifi
+import dns.resolver
 from datetime import datetime, timezone
 from contextlib import asynccontextmanager
 from typing import Optional
@@ -9,11 +11,18 @@ from pydantic import BaseModel, Field
 from bson import ObjectId
 from dotenv import load_dotenv
 
+# Use reliable public DNS resolvers to prevent local router (192.168.1.1) timeouts on MongoDB SRV records
+try:
+    dns.resolver.default_resolver = dns.resolver.Resolver(configure=False)
+    dns.resolver.default_resolver.nameservers = ['8.8.8.8', '1.1.1.1']
+except Exception:
+    pass
+
 load_dotenv()
 
 # MongoDB connection variables
-MONGODB_URL = os.getenv("MONGODB_URL")
-DATABASE_NAME = os.getenv("DATABASE_NAME", "studymate")
+MONGODB_URL = os.getenv("MONGODB_URL", "").strip()
+DATABASE_NAME = os.getenv("DATABASE_NAME", "studymate").strip()
 
 # Global database connection objects
 db_client = None
@@ -23,7 +32,10 @@ db = None
 async def lifespan(app: FastAPI):
     global db_client, db
     print("Connecting to MongoDB Atlas...")
-    db_client = AsyncIOMotorClient(MONGODB_URL)
+    db_client = AsyncIOMotorClient(
+        MONGODB_URL,
+        tlsCAFile=certifi.where()
+    )
     db = db_client[DATABASE_NAME]
     # Test connection
     await db_client.admin.command('ping')
