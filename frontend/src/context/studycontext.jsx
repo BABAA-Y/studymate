@@ -271,49 +271,58 @@ export function StudyProvider({ children }) {
   }
 
   // =========================
-  // CLOUD SYNC ON MOUNT
+  // CLOUD SYNC & STATUS
   // =========================
-  useEffect(() => {
-    let isMounted = true;
+  const [isCloudConnected, setIsCloudConnected] = useState(false);
 
-    async function syncFromCloud() {
-      try {
-        const [cloudTasks, cloudNotes, cloudSubjects, cloudSchedule, cloudSessions] =
-          await Promise.all([
-            api.getTasks().catch(() => null),
-            api.getNotes().catch(() => null),
-            api.getSubjects().catch(() => null),
-            api.getSchedule().catch(() => null),
-            api.getSessions().catch(() => null),
-          ]);
+  const syncFromCloud = useCallback(async () => {
+    try {
+      const [cloudTasks, cloudNotes, cloudSubjects, cloudSchedule, cloudSessions] =
+        await Promise.all([
+          api.getTasks().catch(() => null),
+          api.getNotes().catch(() => null),
+          api.getSubjects().catch(() => null),
+          api.getSchedule().catch(() => null),
+          api.getSessions().catch(() => null),
+        ]);
 
-        if (!isMounted) return;
-
-        if (Array.isArray(cloudTasks) && cloudTasks.length > 0) {
-          setTasks(cloudTasks);
-        }
-        if (Array.isArray(cloudNotes) && cloudNotes.length > 0) {
-          setNotes(cloudNotes);
-        }
-        if (Array.isArray(cloudSubjects) && cloudSubjects.length > 0) {
-          setSubjects(cloudSubjects);
-        }
-        if (Array.isArray(cloudSchedule) && cloudSchedule.length > 0) {
-          setSchedule(cloudSchedule);
-        }
-        if (cloudSessions && typeof cloudSessions.sessions === "number") {
-          setSessions(cloudSessions.sessions);
-        }
-      } catch (err) {
-        console.warn("[StudyMate Cloud] Fallback to local storage:", err.message);
+      if (Array.isArray(cloudTasks)) {
+        setTasks(cloudTasks);
+        setIsCloudConnected(true);
+      } else {
+        setIsCloudConnected(false);
       }
-    }
 
-    syncFromCloud();
-    return () => {
-      isMounted = false;
-    };
+      if (Array.isArray(cloudNotes)) {
+        setNotes(cloudNotes);
+      }
+      if (Array.isArray(cloudSubjects)) {
+        setSubjects(cloudSubjects);
+      }
+      if (Array.isArray(cloudSchedule)) {
+        setSchedule(cloudSchedule);
+      }
+      if (cloudSessions && typeof cloudSessions.sessions === "number") {
+        setSessions(cloudSessions.sessions);
+      }
+    } catch (err) {
+      setIsCloudConnected(false);
+      console.warn("[StudyMate Cloud] Fallback to local storage:", err.message);
+    }
   }, []);
+
+  useEffect(() => {
+    syncFromCloud();
+
+    // Automatically re-sync whenever user returns to the tab (e.g. after modifying backend/database)
+    const handleFocus = () => {
+      syncFromCloud();
+    };
+    window.addEventListener("focus", handleFocus);
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [syncFromCloud]);
 
   // =========================
   // THEME
@@ -390,6 +399,10 @@ export function StudyProvider({ children }) {
         // Theme
         theme,
         setTheme,
+
+        // Cloud Connection & Sync
+        isCloudConnected,
+        refreshCloudData: syncFromCloud,
       }}
     >
       {children}
