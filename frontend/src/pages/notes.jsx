@@ -3,7 +3,7 @@ import NoteCard from "../components/notecard";
 import { useStudy } from "../context/studycontext";
 
 function Notes() {
-  const { notes, addNote, deleteNote } = useStudy();
+  const { notes, addNote, deleteNote, subjects } = useStudy();
 
   const [title, setTitle] = useState("");
   const [subject, setSubject] = useState("");
@@ -160,11 +160,17 @@ function Notes() {
 
           <input
             type="text"
+            list="notes-subjects-datalist"
             placeholder="Subject (e.g. Physics, History)"
             value={subject}
             onChange={(e) => setSubject(e.target.value)}
             className="bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3.5 outline-none text-white placeholder:text-zinc-600 focus:border-zinc-500 transition"
           />
+          <datalist id="notes-subjects-datalist">
+            {subjects.map((s) => (
+              <option key={s.id} value={s.name} />
+            ))}
+          </datalist>
 
           <textarea
             placeholder="Write your note contents..."

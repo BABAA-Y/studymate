@@ -3,7 +3,7 @@ import TaskCard from "./taskcard";
 import { useStudy } from "../context/studycontext";
 
 function Tasks() {
-  const { tasks, addTask, toggleTask, deleteTask } = useStudy();
+  const { tasks, addTask, toggleTask, deleteTask, subjects } = useStudy();
 
   const [newTask, setNewTask] = useState("");
   const [subject, setSubject] = useState("");
@@ -231,11 +231,17 @@ function Tasks() {
           {/* Subject */}
           <input
             type="text"
+            list="task-subjects-datalist"
             placeholder="Subject"
             value={subject}
             onChange={(e) => setSubject(e.target.value)}
             className="bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3.5 outline-none text-white placeholder:text-gray-700 focus:border-zinc-600 transition"
           />
+          <datalist id="task-subjects-datalist">
+            {subjects.map((s) => (
+              <option key={s.id} value={s.name} />
+            ))}
+          </datalist>
 
           {/* Priority */}
           <select

@@ -3,7 +3,7 @@ import ScheduleCard from "../components/schedulecard";
 import { useStudy } from "../context/studycontext";
 
 function Schedule() {
-  const { schedule, addSchedule, deleteSchedule } = useStudy();
+  const { schedule, addSchedule, deleteSchedule, subjects } = useStudy();
 
   const [title, setTitle] = useState("");
   const [subject, setSubject] = useState("");
@@ -230,11 +230,17 @@ function Schedule() {
 
           <input
             type="text"
+            list="schedule-subjects-datalist"
             placeholder="Subject (e.g., Physics)"
             value={subject}
             onChange={(e) => setSubject(e.target.value)}
             className="bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3.5 outline-none text-white placeholder:text-zinc-600 focus:border-zinc-500 transition shadow-inner"
           />
+          <datalist id="schedule-subjects-datalist">
+            {subjects.map((s) => (
+              <option key={s.id} value={s.name} />
+            ))}
+          </datalist>
 
           <input
             type="date"

@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useStudy } from "../context/studycontext";
 
 function Feedback() {
+  const { sendFeedback } = useStudy();
   const [type, setType] = useState("Feature Request");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -96,6 +98,13 @@ function Feedback() {
       "study-mate-feedback",
       JSON.stringify([...existingFeedback, feedbackItem])
     );
+
+    sendFeedback({
+      name: feedbackItem.name,
+      email: feedbackItem.email,
+      type: feedbackItem.type,
+      message: feedbackItem.message,
+    });
 
     setName("");
     setEmail("");

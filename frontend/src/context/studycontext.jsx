@@ -78,6 +78,17 @@ export function StudyProvider({ children }) {
     }
   }
 
+  async function updateTask(id, updates) {
+    setTasks((prev) =>
+      prev.map((task) => (task.id === id ? { ...task, ...updates } : task))
+    );
+    try {
+      await api.updateTask(id, updates);
+    } catch {
+      // local fallback
+    }
+  }
+
   // =========================
   // NOTES
   // =========================
@@ -114,6 +125,17 @@ export function StudyProvider({ children }) {
     setNotes((prev) => prev.filter((note) => note.id !== id));
     try {
       await api.deleteNote(id);
+    } catch {
+      // local fallback
+    }
+  }
+
+  async function updateNote(id, updates) {
+    setNotes((prev) =>
+      prev.map((note) => (note.id === id ? { ...note, ...updates } : note))
+    );
+    try {
+      await api.updateNote(id, updates);
     } catch {
       // local fallback
     }
@@ -205,6 +227,17 @@ export function StudyProvider({ children }) {
     }
   }
 
+  async function updateSchedule(id, updates) {
+    setSchedule((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, ...updates } : item))
+    );
+    try {
+      await api.updateSchedule(id, updates);
+    } catch {
+      // local fallback
+    }
+  }
+
   // =========================
   // STUDY SESSIONS
   // =========================
@@ -225,6 +258,17 @@ export function StudyProvider({ children }) {
       // local fallback
     }
   }, []);
+
+  // =========================
+  // FEEDBACK
+  // =========================
+  async function sendFeedback(item) {
+    try {
+      await api.sendFeedback(item);
+    } catch {
+      // local fallback
+    }
+  }
 
   // =========================
   // CLOUD SYNC ON MOUNT
@@ -315,12 +359,14 @@ export function StudyProvider({ children }) {
         // Tasks
         tasks,
         addTask,
+        updateTask,
         toggleTask,
         deleteTask,
 
         // Notes
         notes,
         addNote,
+        updateNote,
         deleteNote,
 
         // Subjects
@@ -331,11 +377,15 @@ export function StudyProvider({ children }) {
         // Schedule
         schedule,
         addSchedule,
+        updateSchedule,
         deleteSchedule,
 
         // Timer
         sessions,
         completeSession,
+
+        // Feedback
+        sendFeedback,
 
         // Theme
         theme,

@@ -22,15 +22,20 @@ async function request(endpoint, options = {}) {
 }
 
 export const api = {
+  // SYSTEM
+  getHealth: () => request("/health"),
+
   // TASKS
   getTasks: () => request("/tasks"),
   createTask: (task) => request("/tasks", { method: "POST", body: JSON.stringify(task) }),
+  updateTask: (id, updates) => request(`/tasks/${id}`, { method: "PUT", body: JSON.stringify(updates) }),
   toggleTask: (id) => request(`/tasks/${id}/toggle`, { method: "PATCH" }),
   deleteTask: (id) => request(`/tasks/${id}`, { method: "DELETE" }),
 
   // NOTES
   getNotes: () => request("/notes"),
   createNote: (note) => request("/notes", { method: "POST", body: JSON.stringify(note) }),
+  updateNote: (id, updates) => request(`/notes/${id}`, { method: "PUT", body: JSON.stringify(updates) }),
   deleteNote: (id) => request(`/notes/${id}`, { method: "DELETE" }),
 
   // SUBJECTS
@@ -41,9 +46,14 @@ export const api = {
   // SCHEDULE
   getSchedule: () => request("/schedule"),
   createSchedule: (item) => request("/schedule", { method: "POST", body: JSON.stringify(item) }),
+  updateSchedule: (id, updates) => request(`/schedule/${id}`, { method: "PUT", body: JSON.stringify(updates) }),
   deleteSchedule: (id) => request(`/schedule/${id}`, { method: "DELETE" }),
 
   // SESSIONS / TIMER
   getSessions: () => request("/sessions"),
   recordSession: () => request("/sessions", { method: "POST" }),
+
+  // FEEDBACK
+  getFeedback: () => request("/feedback"),
+  sendFeedback: (item) => request("/feedback", { method: "POST", body: JSON.stringify(item) }),
 };
